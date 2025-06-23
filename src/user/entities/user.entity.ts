@@ -10,9 +10,11 @@ export class User {
   @Column()
   name: string;
 
-  @OneToMany(() => Post, (post) => post.user, { eager: true })
+  @OneToMany(() => Post, (post) => post.user, { eager: true, nullable: true })
   posts: Post[];
 
-  @OneToMany(() => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.commentedBy, {
+    nullable: true,
+  })
   comment: Promise<Comment[]>;
 }

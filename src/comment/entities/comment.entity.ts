@@ -1,3 +1,4 @@
+import { Post } from 'src/post/entities/post.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
@@ -9,6 +10,9 @@ export class Comment {
   @Column()
   content: string;
 
-  @ManyToOne(() => User, (user) => user.comment)
-  user: User;
+  @ManyToOne(() => Post, (post) => post.comments, { eager: false }) // or eager: true
+  posts: Post;
+
+  @ManyToOne(() => User, (user) => user.comment, { eager: false })
+  commentedBy: User;
 }
